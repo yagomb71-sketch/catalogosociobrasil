@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sócio Brasil | Catálogo</title>
+<style>
+  :root{
+    --white:#ffffff;
+    --gray-50:#f5f5f7;
+    --gray-100:#e8e8ed;
+    --gray-300:#c7c7cc;
+    --gray-500:#86868b;
+    --gray-800:#3a3a3c;
+    --black:#1d1d1f;
+    --orange:#1a7f4b;
+    --orange-dark:#146339;
+    --radius:18px;
+    --maxw:1200px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Helvetica,Arial,sans-serif;
+    background:var(--white);
+    color:var(--black);
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit; text-decoration:none;}
+  img,svg{display:block;}
+
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--gray-100);
+  }
+  .header-inner{
+    max-width:var(--maxw); margin:0 auto; padding:14px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+  }
+  .logo{font-size:17px; font-weight:700; letter-spacing:-0.02em;}
+  .logo span{color:var(--orange);}
+  .search-box{
+    flex:1; max-width:360px; position:relative;
+  }
+  .search-box input{
+    width:100%; padding:9px 14px 9px 36px; border-radius:980px;
+    border:1px solid var(--gray-100); background:var(--gray-50);
+    font-size:14px; color:var(--black); outline:none;
+  }
+  .search-box input:focus{border-color:var(--orange);}
+  .search-icon{
+    position:absolute; left:12px; top:50%; transform:translateY(-50%);
+    width:15px; height:15px; opacity:0.5;
+  }
+  .whatsapp-btn{
+    background:var(--black); color:var(--white); padding:9px 18px;
+    border-radius:980px; font-size:13px; font-weight:600; white-space:nowrap;
+  }
+  .whatsapp-btn:hover{background:var(--orange);}
+  .wa-wrap{ position:relative; display:inline-block; }
+  .wa-menu{
+    display:none; position:absolute; top:calc(100% + 8px); right:0;
+    background:var(--white); border-radius:14px; box-shadow:0 10px 30px rgba(0,0,0,.18);
+    padding:6px; min-width:210px; z-index:80; border:1px solid var(--gray-100);
+  }
+  .wa-menu.open{ display:block; }
+  .wa-menu-label{ font-size:11px; color:var(--gray-500); padding:8px 12px 4px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; }
+  .wa-menu a{
+    display:block; padding:10px 12px; border-radius:10px; font-size:13.5px; font-weight:600;
+    color:var(--black); text-decoration:none;
+  }
+  .wa-menu a:hover{ background:var(--gray-50); }
+
+  nav.cats{
+    max-width:var(--maxw); margin:0 auto; padding:0 24px 14px;
+    display:flex; gap:8px; overflow-x:auto; scrollbar-width:none;
+  }
+  nav.cats::-webkit-scrollbar{display:none;}
+  .cat-pill{
+    padding:7px 16px; border-radius:980px; font-size:13px; font-weight:600;
+    background:var(--gray-50); color:var(--gray-800); white-space:nowrap;
+    border:1px solid transparent; cursor:pointer; transition:all .15s;
+  }
+  .cat-pill:hover{background:var(--gray-100);}
+  .cat-pill.active{background:var(--black); color:var(--white);}
+
+  .hero{
+    max-width:var(--maxw); margin:0 auto; padding:80px 24px 64px;
+    text-align:center;
+  }
+  .hero-eyebrow{
+    font-size:14px; font-weight:600; color:var(--orange); letter-spacing:.02em;
+    margin-bottom:16px;
+  }
+  .hero h1{
+    font-size:clamp(40px,6vw,72px); font-weight:700; letter-spacing:-0.03em;
+    line-height:1.05; margin-bottom:20px;
+  }
+  .hero p{
+    font-size:clamp(17px,2vw,21px); color:var(--gray-500); max-width:600px;
+    margin:0 auto 32px; line-height:1.5;
+  }
+  .hero-actions{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--orange); color:var(--white); padding:14px 30px;
+    border-radius:980px; font-size:16px; font-weight:600; border:none; cursor:pointer;
+  }
+  .btn-primary:hover{background:var(--orange-dark);}
+  .btn-secondary{
+    background:var(--gray-50); color:var(--black); padding:14px 30px;
+    border-radius:980px; font-size:16px; font-weight:600; border:none; cursor:pointer;
+  }
+  .btn-secondary:hover{background:var(--gray-100);}
+
+  .section-label{
+    max-width:var(--maxw); margin:0 auto; padding:0 24px;
+    display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+    margin-top:8px;
+  }
+  .section-label h2{font-size:28px; font-weight:700; letter-spacing:-0.02em;}
+  .section-label .count{font-size:14px; color:var(--gray-500);}
+
+  .grid{
+    max-width:var(--maxw); margin:0 auto; padding:28px 24px 100px;
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px;
+  }
+  .card{
+    background:var(--gray-50); border-radius:var(--radius);
+    padding:0; cursor:pointer; transition:transform .18s ease, box-shadow .18s ease;
+    overflow:hidden; display:flex; flex-direction:column;
+  }
+  .card:hover{transform:translateY(-4px); box-shadow:0 16px 32px rgba(0,0,0,0.08);}
+  .card-photo{
+    aspect-ratio:1/0.85; display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .card-photo svg{width:38%; height:38%; stroke:var(--gray-800); opacity:0.85;}
+  .card-code{
+    position:absolute; top:12px; left:12px; font-size:11px; font-weight:700;
+    color:var(--gray-500); background:var(--white); padding:3px 9px; border-radius:980px; z-index:2;
+  }
+  .card-topright{
+    position:absolute; top:12px; right:12px; display:flex; flex-direction:column;
+    align-items:flex-end; gap:6px; z-index:2;
+  }
+  .card-number{
+    font-size:11px; font-weight:700; color:var(--gray-500); background:var(--white);
+    padding:3px 9px; border-radius:980px;
+  }
+  .card-info{padding:16px 18px 20px;}
+  .card-name{font-size:15px; font-weight:600; line-height:1.3; margin-bottom:6px; min-height:39px;}
+  .card-price{font-size:17px; font-weight:700; color:var(--black);}
+  .card-cta{
+    margin-top:10px; font-size:13px; font-weight:600; color:var(--orange);
+    display:flex; align-items:center; gap:4px;
+  }
+
+  .protagonist-badge{
+    background:var(--orange); color:var(--white);
+    font-size:10px; font-weight:700; padding:3px 9px; border-radius:980px;
+  }
+  .oos-badge{
+    background:#d92d20; color:var(--white);
+    font-size:10px; font-weight:700; padding:3px 9px; border-radius:980px;
+  }
+  .card-photo.is-oos img{ opacity:0.45; filter:grayscale(40%); }
+  .modal-oos-badge{
+    display:inline-block; background:#d92d20; color:var(--white); font-size:12px; font-weight:700;
+    padding:4px 12px; border-radius:980px; margin-bottom:14px;
+  }
+
+  .modal-overlay{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5);
+    z-index:100; align-items:center; justify-content:center; padding:24px;
+  }
+  .modal-overlay.open{display:flex;}
+  .modal{
+    background:var(--white); border-radius:28px; max-width:920px; width:100%;
+    max-height:88vh; overflow-y:auto; display:grid; grid-template-columns:1fr 1fr;
+  }
+  @media(max-width:720px){ .modal{grid-template-columns:1fr;} }
+  .modal-photo{
+    background:var(--gray-50); display:flex; align-items:center; justify-content:center;
+    padding:28px; min-height:340px; position:relative;
+  }
+  .modal-photo svg{width:52%; height:52%; stroke:var(--gray-800);}
+  .modal-close{
+    position:absolute; top:20px; right:20px; width:32px; height:32px; border-radius:50%;
+    background:var(--white); display:flex; align-items:center; justify-content:center;
+    cursor:pointer; font-size:16px; border:1px solid var(--gray-100); z-index:2;
+  }
+  .modal-body{padding:44px 40px;}
+  .modal-cat{font-size:13px; font-weight:600; color:var(--orange); margin-bottom:10px; text-transform:uppercase; letter-spacing:.03em;}
+  .modal-name{font-size:28px; font-weight:700; letter-spacing:-0.02em; margin-bottom:10px; line-height:1.15;}
+  .modal-code{font-size:13px; color:var(--gray-500); margin-bottom:22px;}
+  .modal-price{font-size:30px; font-weight:700; margin-bottom:24px;}
+  .modal-specs{border-top:1px solid var(--gray-100); padding-top:20px; margin-bottom:28px;}
+  .modal-specs div{display:flex; justify-content:space-between; padding:8px 0; font-size:14px; border-bottom:1px solid var(--gray-50);}
+  .modal-specs span:first-child{color:var(--gray-500);}
+  .modal-specs span:last-child{font-weight:600;}
+  .modal-actions{display:flex; gap:10px;}
+
+  footer{
+    background:var(--gray-50); padding:48px 24px; text-align:center; margin-top:40px;
+  }
+  footer p{color:var(--gray-500); font-size:13px;}
+
+  .empty-state{
+    grid-column:1/-1; text-align:center; padding:80px 20px; color:var(--gray-500);
+  }
+
+  @media(max-width:640px){
+    .header-inner{flex-wrap:wrap; padding:12px 16px;}
+    .logo{font-size:16px;}
+    .search-box{order:3; max-width:100%; flex-basis:100%;}
+    .whatsapp-btn{padding:8px 14px; font-size:12px;}
+    nav.cats{padding:0 16px 12px;}
+    .hero{padding:48px 16px 40px;}
+    .hero h1{font-size:34px;}
+    .hero p{font-size:15px;}
+    .hero-actions{flex-direction:column; align-items:stretch;}
+    .section-label{padding:0 16px; flex-wrap:wrap; gap:6px;}
+    .section-label h2{font-size:22px;}
+    .grid{padding:20px 16px 80px; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px;}
+    .card-name{font-size:13px; min-height:34px;}
+    .card-price{font-size:15px;}
+    .card-info{padding:12px 14px 16px;}
+    .modal-overlay{padding:0;}
+    .modal{border-radius:20px 20px 0 0; max-height:94vh;}
+    .modal-photo{padding:32px; min-height:240px;}
+    .modal-body{padding:28px 24px;}
+    .modal-name{font-size:22px;}
+    .modal-price{font-size:24px;}
+      .cart-fab{ padding:12px 16px; font-size:13px; bottom:16px; right:16px; }
+    .cart-modal{ border-radius:20px 20px 0 0; max-height:90vh; }
+
+  }
+
+  .card-qty{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:12px; gap:8px;
+  }
+  .qty-btn{
+    width:30px; height:30px; border-radius:50%; border:1px solid var(--gray-100);
+    background:var(--gray-50); font-size:16px; font-weight:700; cursor:pointer;
+    display:flex; align-items:center; justify-content:center; color:var(--black);
+    line-height:1; padding:0;
+  }
+  .qty-btn:hover{ background:var(--gray-100); }
+  .qty-btn:disabled{ opacity:0.35; cursor:default; }
+  .qty-value{ font-weight:700; font-size:15px; min-width:22px; text-align:center; }
+  .card.in-cart{ box-shadow:0 0 0 2px var(--orange) inset; }
+
+  .cart-fab{
+    position:fixed; bottom:20px; right:20px; z-index:70;
+    background:var(--black); color:var(--white); border:none; border-radius:980px;
+    padding:14px 22px; display:flex; align-items:center; gap:10px; cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,.25); font-size:14px; font-weight:700;
+  }
+  .cart-fab.hidden{ display:none; }
+  .cart-badge{
+    background:var(--orange); color:var(--white); border-radius:980px;
+    min-width:20px; height:20px; padding:0 5px; font-size:11px; font-weight:800;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .cart-modal{
+    background:var(--white); border-radius:28px; max-width:520px; width:100%;
+    max-height:88vh; overflow:hidden; display:flex; flex-direction:column;
+  }
+  .cart-header{
+    padding:24px 24px 12px; display:flex; align-items:center; justify-content:space-between;
+    border-bottom:1px solid var(--gray-100); flex-shrink:0;
+  }
+  .cart-header h3{ font-size:20px; font-weight:700; }
+  .cart-close{ cursor:pointer; font-size:20px; color:var(--gray-500); line-height:1; }
+  .cart-items{ padding:8px 24px; flex:1; overflow-y:auto; min-height:0; }
+  .cart-item{
+    display:flex; align-items:center; gap:12px; padding:14px 0; border-bottom:1px solid var(--gray-50);
+  }
+  .cart-item-photo{
+    width:56px; height:56px; border-radius:12px; background:var(--gray-50); flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; overflow:hidden;
+  }
+  .cart-item-photo img{ width:100%; height:100%; object-fit:contain; }
+  .cart-item-info{ flex:1; min-width:0; }
+  .cart-item-name{ font-size:13.5px; font-weight:600; line-height:1.3; margin-bottom:4px;
+    overflow:hidden; text-overflow:ellipsis; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+  .cart-item-price{ font-size:12.5px; color:var(--gray-500); }
+  .cart-item-remove{ font-size:12px; color:#d92d20; font-weight:600; cursor:pointer; }
+  .cart-footer{ padding:18px 24px 24px; border-top:1px solid var(--gray-100); flex-shrink:0; }
+  .cart-total{ display:flex; justify-content:space-between; font-size:17px; font-weight:700; margin-bottom:16px; }
+  .cart-empty{ text-align:center; padding:60px 20px; color:var(--gray-500); font-size:14px; }
+  .cart-clear{ text-align:center; margin-bottom:12px; }
+  #cartWaMenu{ top:auto; bottom:calc(100% + 8px); }
+
+
+  /* ===== EDITOR DE PREÇOS ===== */
+  .cart-fab{ display:none !important; }
+  .ed-banner{ background:#1a7f4b; color:#fff; text-align:center; font-size:13px; font-weight:700; padding:9px 16px; }
+  .card{ cursor:default; }
+  .price-edit{ display:flex; align-items:center; gap:8px; margin-top:4px; background:var(--white); border:2px solid var(--gray-100); border-radius:12px; padding:6px 12px; }
+  .price-edit:focus-within{ border-color:var(--orange); }
+  .price-edit.changed{ border-color:#f5a623; background:#fff8e8; }
+  .price-edit .pe-cur{ font-weight:700; color:var(--gray-500); }
+  .price-edit input{ flex:1; min-width:0; border:none; outline:none; background:transparent; font-size:18px; font-weight:700; color:var(--black); }
+  .price-edit input::placeholder{ color:var(--gray-300); }
+  .pe-old{ font-size:12px; color:var(--gray-500); margin-top:6px; }
+  .ed-bar{ position:fixed; left:0; right:0; bottom:0; z-index:90; background:#1d1d1f; color:#fff; display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; padding:12px 16px; box-shadow:0 -8px 24px rgba(0,0,0,.2); }
+  .ed-bar b{ font-size:14px; margin-right:6px; }
+  .ed-bar button{ border:none; border-radius:980px; padding:10px 18px; font-size:13px; font-weight:700; cursor:pointer; }
+  .ed-copy{ background:#1a7f4b; color:#fff; }
+  .ed-dl{ background:#fff; color:#1d1d1f; }
+  .ed-clear{ background:transparent; color:#ff8a80; }
+  .grid{ padding-bottom:140px; }
+</style>
+</head>
+<body>
+
+<div class="ed-banner">MODO EDIÇÃO DE PREÇOS: digite o novo preço nos produtos que quiser mudar. Não publique este arquivo no site.</div>
+<header>
+  <div class="header-inner">
+    <img src="data:image/jpeg;base64,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" alt="Sócio Brasil" style="height:34px;width:auto;border-radius:6px;display:block;">
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Buscar produto ou código (ex: KA-9926, W69, carregador)">
+    </div>
+    <div class="wa-wrap">
+      <button class="whatsapp-btn" type="button" onclick="toggleWaMenu('headerWaMenu', event)">Falar no WhatsApp</button>
+      <div class="wa-menu" id="headerWaMenu">
+        <div class="wa-menu-label">Escolha o número</div>
+        <a href="https://wa.me/5511944814543" target="_blank" rel="noopener">(11) 94481-4543</a>
+        <a href="https://wa.me/5511918697608" target="_blank" rel="noopener">(11) 91869-7608</a>
+      </div>
+    </div>
+  </div>
+  <nav class="cats" id="catNav"></nav>
+</header>
+
+<section class="hero" style="display:none">
+  <div class="hero-eyebrow">CATÁLOGO OFICIAL 2026</div>
+  <h1>Eletrônicos e acessórios<br>com qualidade garantida.</h1>
+  <p>Smartwatches, fones, power banks e muito mais, direto da Galeria Pagé para todo o Brasil, no atacado e no varejo.</p>
+  <div class="hero-actions">
+    <button class="btn-secondary" onclick="filterCat('smartwatch')">Ver protagonistas</button>
+  </div>
+</section>
+
+<div class="section-label">
+  <h2 id="gridTitle">Todos os produtos</h2>
+  <span class="count" id="gridCount"></span>
+</div>
+
+<main class="grid" id="grid"></main>
+
+<footer>
+  <p>Sócio Brasil © 2026. Catálogo oficial: 481 produtos, com fotos reais do catálogo. Atualizado em 31/10/2026.</p>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-photo" id="modalPhoto">
+      <div class="modal-close" onclick="closeModal()">✕</div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat" id="modalCat"></div>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-code" id="modalCode"></div>
+      <div class="modal-price" id="modalPrice"></div>
+      <div class="modal-specs" id="modalSpecs"></div>
+      <div class="card-qty" id="modalQtyRow" style="margin-bottom:16px;"></div>
+      <div class="modal-actions">
+        <a id="modalWhatsBtn" href="#" target="_blank" rel="noopener" class="btn-primary" style="flex:1;text-align:center;text-decoration:none;display:inline-block;">Pedir no WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</div>
+<button class="cart-fab hidden" id="cartFab" onclick="openCart()">
+  🛒 Carrinho <span class="cart-badge" id="cartBadge">0</span>
+</button>
+
+<div class="modal-overlay" id="cartOverlay">
+  <div class="cart-modal">
+    <div class="cart-header">
+      <h3>Seu pedido</h3>
+      <div class="cart-close" onclick="closeCart()">✕</div>
+    </div>
+    <div class="cart-items" id="cartItemsList"></div>
+    <div class="cart-footer">
+      <div class="cart-clear"><span class="cart-item-remove" onclick="clearCart()">Esvaziar carrinho</span></div>
+      <div class="cart-total"><span>Total</span><span id="cartTotal">R$ 0,00</span></div>
+      <div class="wa-wrap" style="display:block;width:100%;">
+        <button class="btn-primary" type="button" style="display:block;width:100%;" onclick="toggleWaMenu('cartWaMenu', event)">Finalizar pedido no WhatsApp</button>
+        <div class="wa-menu" id="cartWaMenu" style="left:0;right:0;width:100%;">
+          <div class="wa-menu-label">Escolha o número</div>
+          <a id="cartWhatsBtn1" href="#" target="_blank" rel="noopener">(11) 94481-4543</a>
+          <a id="cartWhatsBtn2" href="#" target="_blank" rel="noopener">(11) 91869-7608</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="ed-bar"><b id="edCount">0 preços alterados</b>
+  <button class="ed-copy" onclick="copyList()">Copiar lista</button>
+  <button class="ed-dl" onclick="downloadList()">Baixar .txt</button>
+  <button class="ed-clear" onclick="clearAll()">Limpar tudo</button></div>
+<script>
+let edits = {};
+try{ edits = JSON.parse(localStorage.getItem('sb_price_edits')||'{}'); }catch(e){}
+function persist(){ try{ localStorage.setItem('sb_price_edits', JSON.stringify(edits)); }catch(e){} }
+function parsePrice(s){ s=String(s).trim().replace(/R\$/g,'').replace(/\s/g,''); if(!s) return null; if(s.includes(',')) s=s.replace(/\./g,'').replace(',','.'); const v=parseFloat(s); return isNaN(v)?null:v; }
+function onEdit(idx, el){
+  const v = parsePrice(el.value);
+  if(v===null || v===PRODUCTS[idx].price){ delete edits[idx]; } else { edits[idx]=v; }
+  el.parentElement.classList.toggle('changed', edits[idx]!==undefined);
+  persist(); updCount();
+}
+function updCount(){ const n=Object.keys(edits).length; document.getElementById('edCount').textContent = n+(n===1?' preço alterado':' preços alterados'); }
+function buildList(){
+  const rows=[]; 
+  Object.keys(edits).map(Number).sort((a,b)=>a-b).forEach(idx=>{
+    const p=PRODUCTS[idx];
+    const inCat = PRODUCTS.filter(x=>x.cat===p.cat).indexOf(p)+1;
+    const catLabel = (CATS.find(c=>c.id===p.cat)||{}).label || p.cat;
+    rows.push(`Aba ${catLabel} nº ${inCat} | Todos nº ${idx+1} | ${p.code||'sem código'} | ${p.name} | de R$ ${fmt(p.price)} para R$ ${fmt(edits[idx])}`);
+  });
+  return 'ALTERAÇÕES DE PREÇO ('+rows.length+')\n\n'+rows.join('\n');
+}
+function copyList(){
+  if(!Object.keys(edits).length){ alert('Nenhum preço alterado ainda.'); return; }
+  const t=buildList();
+  (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>alert('Lista copiada! Cole na conversa com o Claude.')).catch(()=>{ downloadList(); });
+}
+function downloadList(){
+  if(!Object.keys(edits).length){ alert('Nenhum preço alterado ainda.'); return; }
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([buildList()],{type:'text/plain;charset=utf-8'})); a.download='alteracoes-precos.txt'; a.click();
+}
+function clearAll(){ if(confirm('Apagar todas as alterações digitadas?')){ edits={}; persist(); updCount(); render(); } }
+document.addEventListener("DOMContentLoaded",updCount);
+</script>
+
+<script>
+const CART_KEY = 'sb_cart_principal';
+const WHATSAPP_NUM = '5511944814543';
+const WHATSAPP_NUM2 = '5511918697608';
+const ICONS = {
+  cabos: '<path d="M9 2.5v4M15 2.5v4M6 6.5h12v4a6 6 0 0 1-12 0v-4z"/><path d="M12 16.5v5"/>',
+  fones: '<path d="M4 13v-1a8 8 0 0 1 16 0v1"/><rect x="2" y="13" width="5" height="7" rx="2"/><rect x="17" y="13" width="5" height="7" rx="2"/>',
+  smartwatch: '<rect x="8" y="7" width="8" height="10" rx="2.5"/><path d="M9.3 4.2h5.4l.5 2.8h-6.4zM9.3 19.8h5.4l.5-2.8h-6.4z"/><path d="M12 10.5v2l1.6 1"/>',
+  powerbank: '<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M10.5 8h3.5l-2.2 3.8H14L10.5 16"/>',
+  caixas: '<rect x="5" y="3" width="14" height="18" rx="3"/><circle cx="12" cy="15" r="4"/><circle cx="12" cy="7" r="1"/>',
+  cameras: '<rect x="3" y="7" width="13" height="10" rx="2"/><circle cx="9.5" cy="12" r="3"/><path d="M16 10.3l5-2.8v9l-5-2.8z"/>',
+  diversos: '<rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/>'
+};
+
+const CATS = [
+  {id:'all', label:'Todos'},
+  {id:'smartwatch', label:'Smartwatch'},
+  {id:'fones', label:'Fones'},
+  {id:'cabos', label:'Cabos/Carregadores'},
+  {id:'powerbank', label:'Power Bank'},
+  {id:'caixas', label:'Caixas de Som'},
+  {id:'cameras', label:'Câmeras/Projetores'},
+  {id:'diversos', label:'Diversos'}
+];
+
+const PRODUCTS = [
+{name:'Cabo Basike USB-A to Lightning', price:10, cat:'cabos', img:'p0053.jpg'},
+{name:'Cabo Basike USB-A to USB-C', price:12, cat:'cabos', img:'p0054.jpg'},
+{name:'Cabo Basike USB-C to Lightning', price:12, cat:'cabos', img:'p0055.jpg'},
+{name:'Cabo Basike USB-C to USB-C', price:15, cat:'cabos', img:'p0056.jpg'},
+{name:'Cabo Basike USB-A to Lightning', price:10, cat:'cabos', img:'p0057.jpg'},
+{name:'Cabo Basike USB-A to USB-C', price:12, cat:'cabos', img:'p0058.jpg'},
+{name:'Cabo Basike USB-C to Lightning', price:12, cat:'cabos', img:'p0059.jpg'},
+{name:'Cabo Basike USB-C to USB-C', price:15, cat:'cabos', img:'p0060.jpg'},
+{name:'Carregador Basike USB-A/USB-C (USB-C to Lightning)', price:25, cat:'cabos', img:'p0061.jpg'},
+{name:'Carregador Basike USB-A/USB-C (USB-C to USB-C)', price:25, cat:'cabos', img:'p0062.jpg'},
+{name:'Carregador Basike 20W USB-C to Lightning', price:20, cat:'cabos', img:'p0063.jpg'},
+{name:'Carregador Basike 20W USB-C to USB-C', price:20, cat:'cabos', img:'p0064.jpg'},
+{name:'Fonte de Alimentação Basike 65W (3x USB-A/2x USB-C)', price:70, cat:'cabos', img:'p0065.jpg'},
+{name:'Cabo USB de Dados 7G', price:6, cat:'cabos', img:'p0066.jpg'},
+{name:'Cabo USB de Dados TY', price:6, cat:'cabos', img:'p0067.jpg'},
+{name:'Carregador Veicular Kapbom 4.8A (2x USB-A)', price:8, cat:'cabos', img:'p0068.jpg'},
+{name:'Carregador Veicular Inova 4.8A (2x USB-A)', price:10, cat:'cabos', img:'p0069.jpg'},
+{name:'Carregador Veicular Inova 3.4A', price:12, cat:'cabos', img:'p0070.jpg'},
+{name:'Carregador Veicular Inova 4.8A (2x USB-A + Cabo USB-TY)', price:15, cat:'cabos', img:'p0071.jpg'},
+{name:'Carregador Veicular Turbo 55W (2x USB-A/1x USB-C)', price:16, cat:'cabos', img:'p0072.jpg'},
+{name:'Transmissor Veicular (Bluetooth/Pendrive/Cartão)', price:25, cat:'cabos', img:'p0073.jpg'},
+{name:'Carregador Inova por Indução 3in1', price:75, cat:'cabos', img:'p0074.jpg'},
+{name:'Carregador Inova por Indução 3in1', price:75, cat:'cabos', img:'p0075.jpg'},
+{name:'Carregador Basike por Indução 3in1', price:100, cat:'cabos', img:'p0076.jpg'},
+{name:'Carregador Basike por Indução 3in1', price:100, cat:'cabos', img:'p0077.jpg'},
+{name:'Cabo 4in1', price:8.5, cat:'cabos', img:'p0079.jpg'},
+{name:'Carregador Completo IP.15', price:16, cat:'cabos', img:'p0080.jpg'},
+{name:'Carregador Completo IP.14', price:15, cat:'cabos', code:'CAR009', img:'p0081.jpg'},
+{name:'Fonte 5.1A (3x USB) + Cabo USB-C - Cartão Micro SD', price:13, cat:'cabos', img:'p0082.jpg'},
+{name:'Fonte 5.1A (3x USB) + Cabo USB-7G', price:13, cat:'cabos', img:'p0083.jpg'},
+{name:'Fonte P/ iPhone 20W', price:12, cat:'cabos', img:'p0084.jpg'},
+{name:'Fonte 20W Turbo (USB-A/USB-C)', price:25, cat:'cabos', img:'p0085.jpg'},
+{name:'Carregador Magnético USB-C', price:25, cat:'cabos', img:'p0086.jpg'},
+{name:'Carregador de Indução 3in1', price:60, cat:'cabos', img:'p0087.jpg'},
+{name:'Fone Bazik Prime P2', price:8, cat:'fones', img:'p0088.jpg'},
+{name:'Fone P2 Estéreo', price:6, cat:'fones', img:'p0089.jpg'},
+{name:'Fone Kaile P2 #1', price:6, cat:'fones', img:'p0090.jpg'},
+{name:'Fone Kaile P2 #2', price:7, cat:'fones', img:'p0091.jpg'},
+{name:'Fone Kaile P2 #3', price:8, cat:'fones', img:'p0092.jpg'},
+{name:'Fone Kaile P2 #4', price:10, cat:'fones', img:'p0093.jpg'},
+{name:'Fone Kaile 7G #1', price:12, cat:'fones', img:'p0094.jpg'},
+{name:'Fone Kaile 7G #2', price:15, cat:'fones', img:'p0095.jpg'},
+{name:'Fone Kaile TY #1', price:15, cat:'fones', img:'p0096.jpg'},
+{name:'Fone Kaile TY #2', price:17, cat:'fones', img:'p0097.jpg'},
+{name:'Fone BT M10', price:15, cat:'fones', img:'p0102.jpg'},
+{name:'Fone BT I12', price:15, cat:'fones', img:'p0103.jpg'},
+{name:'Fone Inova BT #1', price:35, cat:'fones', code:'MD-12976', img:'p0107.jpg'},
+{name:'Fone Inova BT #2', price:35, cat:'fones', code:'FON-12967', img:'p0108.jpg'},
+{name:'Fone Inova BT #3', price:35, cat:'fones', code:'FON-12967', img:'p0109.jpg'},
+{name:'Fone Inova BT #4', price:35, cat:'fones', code:'FON-20379', img:'p0110.jpg'},
+{name:'Fone Inova BT #5', price:45, cat:'fones', code:'FON-13013', img:'p0111.jpg'},
+{name:'Fone Inova BT #6', price:45, cat:'fones', code:'FON-13025', img:'p0112.jpg'},
+{name:'Fone Inova BT #7', price:45, cat:'fones', code:'FON-13014', img:'p0113.jpg'},
+{name:'Fone Inova BT #8', price:50, cat:'fones', code:'FON-12970A', img:'p0114.jpg'},
+{name:'Fone Basike BT #1', price:45, cat:'fones', code:'FON-9856', img:'p0115.jpg'},
+{name:'Fone Basike BT #2', price:48, cat:'fones', code:'BA-FON6694', img:'p0116.jpg'},
+{name:'Fone Basike BT #3', price:48, cat:'fones', code:'BA-FON173', img:'p0117.jpg'},
+{name:'Fone Basike BT #4', price:50, cat:'fones', code:'FON-12061', img:'p0118.jpg'},
+{name:'Fone Basike BT #5', price:65, cat:'fones', code:'BA-FON228', img:'p0119.jpg'},
+{name:'Fone Basike BT #6', price:65, cat:'fones', code:'BA-FON166', img:'p0120.jpg'},
+{name:'Fone Basike Sports BT #7', price:80, cat:'fones', code:'BA-FON150', img:'p0121.jpg'},
+{name:'Fone Basike Sports BT #8', price:80, cat:'fones', code:'BA-FON231', img:'p0122.jpg'},
+{name:'Fone Basike Sports BT #9', price:80, cat:'fones', code:'BA-FON305', img:'p0123.jpg'},
+{name:'Fone Basike Sports BT #10', price:80, cat:'fones', code:'BAFON-222', img:'p0124.jpg'},
+{name:'Fone Basike Sports BT #11', price:80, cat:'fones', code:'BA-FON229', img:'p0125.jpg'},
+{name:'Headphone BT-510', price:35, cat:'fones', img:'p0133.jpg'},
+{name:'Headphone Basike #1', price:75, cat:'fones', code:'BA-FON174', img:'p0134.jpg'},
+{name:'Headphone Basike #2', price:85, cat:'fones', code:'FON-08778', img:'p0135.jpg'},
+{name:'Headphone Basike 30H (ANC) #3', price:85, cat:'fones', code:'Ba-FON192', img:'p0136.jpg'},
+{name:'Headphone Basike 30H (ANC) #4', price:110, cat:'fones', code:'BA-FON196', img:'p0137.jpg'},
+{name:'Headphone Basike 30H (ANC) #5', price:110, cat:'fones', code:'BA-FON144', img:'p0138.jpg'},
+{name:'Headphone Basike 40H (ANC) #6', price:110, cat:'fones', code:'BA-FON170', img:'p0139.jpg'},
+{name:'Headphone Basike 50H (ANC) #7', price:115, cat:'fones', code:'BA-FON198', img:'p0140.jpg'},
+{name:'Headphone Basike 45H (ANC) #8', price:130, cat:'fones', code:'BA-FON194', img:'p0141.jpg'},
+{name:'Headphone Basike 80H (ANC) #9', price:160, cat:'fones', code:'BA-FON167', img:'p0142.jpg'},
+{name:'Headphone Basike 80H (ANC) #10', price:170, cat:'fones', code:'Ba-FON168', img:'p0143.jpg'},
+{name:'Headphone Kapbom #1', price:45, cat:'fones', code:'KA-994', img:'p0144.jpg'},
+{name:'Headphone Kapbom #2', price:45, cat:'fones', code:'KA-9253', img:'p0145.jpg'},
+{name:'Headphone Kapbom #3', price:45, cat:'fones', code:'KA-9068', img:'p0146.jpg'},
+{name:'Fone Inova (13012-B)', price:42, cat:'fones', code:'FON13012B', img:'p0147.jpg'},
+{name:'Fone Inova (13025-K)', price:42, cat:'fones', code:'FON-13025K', img:'p0148.jpg'},
+{name:'Fone Inova PD-PRO', price:35, cat:'fones', code:'FON-13082', img:'p0149.jpg'},
+{name:'Fone Inova PD-PRO 2', price:37, cat:'fones', code:'FON-12969C', img:'p0150.jpg'},
+{name:'Pulseira Lisa (38/40/41mm)', price:8, cat:'smartwatch', img:'p0151.jpg'},
+{name:'Pulseira Metal (38/40/41mm)', price:12, cat:'smartwatch', img:'p0152.jpg'},
+{name:'Pulseira Nike (38/40/41mm)', price:10, cat:'smartwatch', img:'p0153.jpg'},
+{name:'Pulseira Velcro 1 (38/40/41mm)', price:10, cat:'smartwatch', img:'p0154.jpg'},
+{name:'Pulseira Ocean (38/40/41mm)', price:12, cat:'smartwatch', img:'p0155.jpg'},
+{name:'Pulseira Velcro 2 (38/40/41mm)', price:12, cat:'smartwatch', img:'p0156.jpg'},
+{name:'Pulseira Gancho (38/40/41mm)', price:12, cat:'smartwatch', img:'p0157.jpg'},
+{name:'Pulseira Fecho Social (38/40/41mm)', price:10, cat:'smartwatch', img:'p0158.jpg'},
+{name:'Pulseira Aço (38/40/41mm)', price:20, cat:'smartwatch', img:'p0159.jpg'},
+{name:'Smartwatch W34+', price:55, cat:'smartwatch', img:'p0160.jpg'},
+{name:'Smartwatch S12 Pro', price:60, cat:'smartwatch', img:'p0161.jpg'},
+{name:'Smartwatch T1000 Ultra 4', price:60, cat:'smartwatch', img:'p0162.jpg'},
+{name:'Smartwatch ST-76', price:65, cat:'smartwatch', img:'p0163.jpg'},
+{name:'Smartwatch W83', price:65, cat:'smartwatch', img:'p0164.jpg'},
+{name:'Smartwatch S10 Ultra+', price:65, cat:'smartwatch', img:'p0165.jpg'},
+{name:'Smartwatch S9 Ultra Pro', price:65, cat:'smartwatch', img:'p0166.jpg'},
+{name:'Smartwatch W63', price:70, cat:'smartwatch', img:'p0167.jpg'},
+{name:'Smartwatch W35+', price:70, cat:'smartwatch', img:'p0168.jpg'},
+{name:'Smartwatch S11 Mini (3 pulseiras)', price:75, cat:'smartwatch', protagonist:true, img:'p0169.jpg'},
+{name:'Smartwatch T20', price:75, cat:'smartwatch', img:'p0170.jpg'},
+{name:'Smartwatch HY-S9', price:75, cat:'smartwatch', img:'p0171.jpg'},
+{name:'Smartwatch W80 Mini', price:75, cat:'smartwatch', img:'p0172.jpg'},
+{name:'Smartwatch W86 Mini', price:75, cat:'smartwatch', img:'p0173.jpg'},
+{name:'Smartwatch GS8 Mini', price:80, cat:'smartwatch', img:'p0174.jpg'},
+{name:'Smartwatch W72 Ultra', price:80, cat:'smartwatch', img:'p0175.jpg'},
+{name:'Smartwatch W56', price:80, cat:'smartwatch', img:'p0176.jpg'},
+{name:'Smartwatch KA-9972', price:85, cat:'smartwatch', img:'p0177.jpg'},
+{name:'Smartwatch S22', price:85, cat:'smartwatch', img:'p0178.jpg'},
+{name:'Smartwatch S23', price:85, cat:'smartwatch', img:'p0179.jpg'},
+{name:'Smartwatch S24', price:85, cat:'smartwatch', img:'p0180.jpg'},
+{name:'Smartwatch W96', price:85, cat:'smartwatch', img:'p0181.jpg'},
+{name:'Smartwatch W64', price:85, cat:'smartwatch', img:'p0182.jpg'},
+{name:'Smartwatch W84', price:85, cat:'smartwatch', img:'p0183.jpg'},
+{name:'Smartwatch W82', price:85, cat:'smartwatch', img:'p0184.jpg'},
+{name:'Smartwatch W89', price:85, cat:'smartwatch', img:'p0185.jpg'},
+{name:'Smartwatch W59 Mini', price:85, cat:'smartwatch', img:'p0186.jpg'},
+{name:'Smartwatch Ultra 10', price:85, cat:'smartwatch', img:'p0187.jpg'},
+{name:'Smartwatch S11 Pro', price:85, cat:'smartwatch', img:'p0188.jpg'},
+{name:'Smartwatch S11 Ultra', price:85, cat:'smartwatch', img:'p0189.jpg'},
+{name:'Smartwatch W29S', price:85, cat:'smartwatch', img:'p0190.jpg'},
+{name:'Smartwatch U9S', price:85, cat:'smartwatch', img:'p0191.jpg'},
+{name:'Smartwatch S10', price:80, cat:'smartwatch', img:'p0192.jpg'},
+{name:'Smartwatch S19', price:85, cat:'smartwatch', img:'p0193.jpg'},
+{name:'Smartwatch GS8 Ultra', price:80, cat:'smartwatch', img:'p0194.jpg'},
+{name:'Smartwatch W69 (Kit 7 pulseiras)', price:110, cat:'smartwatch', protagonist:true, img:'p0195.jpg'},
+{name:'Smartwatch W97 (Kit 7 pulseiras)', price:110, cat:'smartwatch', img:'p0196.jpg'},
+{name:'Smartwatch W74 (Kit 7 pulseiras)', price:100, cat:'smartwatch', img:'p0197.jpg'},
+{name:'Smartwatch W61 (Kit 7 pulseiras)', price:100, cat:'smartwatch', img:'p0198.jpg'},
+{name:'Smartwatch W87', price:110, cat:'smartwatch', img:'p0199.jpg'},
+{name:'Smartwatch W81', price:110, cat:'smartwatch', img:'p0200.jpg'},
+{name:'Smartwatch W68 (Kit 7 pulseiras)', price:110, cat:'smartwatch', img:'p0201.jpg'},
+{name:'Smartwatch W57 (Kit 7 pulseiras)', price:110, cat:'smartwatch', img:'p0202.jpg'},
+{name:'Smartwatch W53 (Kit 7 pulseiras)', price:110, cat:'smartwatch', img:'p0203.jpg'},
+{name:'Smartwatch W52 (Kit 7 pulseiras)', price:110, cat:'smartwatch', img:'p0204.jpg'},
+{name:'Smartwatch W54 (Kit 7 pulseiras)', price:105, cat:'smartwatch', img:'p0205.jpg'},
+{name:'Smartwatch W73', price:100, cat:'smartwatch', img:'p0206.jpg'},
+{name:'Smartwatch W62', price:100, cat:'smartwatch', img:'p0207.jpg'},
+{name:'Smartwatch W85 (Kit 7 pulseiras)', price:100, cat:'smartwatch', img:'p0208.jpg'},
+{name:'Smartwatch W65 (Kit 7 pulseiras)', price:100, cat:'smartwatch', img:'p0209.jpg'},
+{name:'Smartwatch W66 (Kit 5 pulseiras)', price:95, cat:'smartwatch', img:'p0210.jpg'},
+{name:'Smartwatch W58 (Kit 5 pulseiras)', price:95, cat:'smartwatch', img:'p0211.jpg'},
+{name:'Smartwatch W59 Pro', price:100, cat:'smartwatch', img:'p0212.jpg'},
+{name:'Smartwatch W29 Pro', price:100, cat:'smartwatch', img:'p0213.jpg'},
+{name:'Smartwatch GS10 Mini', price:110, cat:'smartwatch', img:'p0214.jpg'},
+{name:'Smartwatch M10 Ultra Mini', price:115, cat:'smartwatch', img:'p0215.jpg'},
+{name:'Smartwatch GS11 Mini', price:125, cat:'smartwatch', img:'p0216.jpg'},
+{name:'Smartwatch M11 Mini', price:120, cat:'smartwatch', img:'p0217.jpg'},
+{name:'Smartwatch HW10 Ultra 2', price:115, cat:'smartwatch', img:'p0218.jpg'},
+{name:'Smartwatch HW10 Pro 2', price:115, cat:'smartwatch', img:'p0219.jpg'},
+{name:'Smartwatch Ultra 9 Plus', price:100, cat:'smartwatch', img:'p0220.jpg'},
+{name:'Smartwatch W69 Mini', price:100, cat:'smartwatch', img:'p0221.jpg'},
+{name:'Smartwatch W10 Ultra+', price:150, cat:'smartwatch', img:'p0222.jpg'},
+{name:'Smartwatch W69 Ultra', price:100, cat:'smartwatch', img:'p0223.jpg'},
+{name:'Smartwatch Ultra 3 Pro', price:120, cat:'smartwatch', img:'p0224.jpg'},
+{name:'Smartwatch X Pro', price:120, cat:'smartwatch', img:'p0225.jpg'},
+{name:'Smartwatch Ultra 3 W', price:130, cat:'smartwatch', img:'p0226.jpg'},
+{name:'Smartwatch W10', price:120, cat:'smartwatch', img:'p0227.jpg'},
+{name:'Smartwatch W10 Pro', price:150, cat:'smartwatch', img:'p0228.jpg'},
+{name:'Smartwatch S10 Pro', price:150, cat:'smartwatch', img:'p0229.jpg'},
+{name:'Smartwatch W99+', price:135, cat:'smartwatch', img:'p0230.jpg'},
+{name:'Smartwatch W10 Mini Pro', price:125, cat:'smartwatch', img:'p0231.jpg'},
+{name:'Smartwatch W10 Mini', price:140, cat:'smartwatch', img:'p0232.jpg'},
+{name:'Smartwatch S11', price:110, cat:'smartwatch', img:'p0233.jpg'},
+{name:'Smartwatch S11 Pro', price:125, cat:'smartwatch', img:'p0234.jpg'},
+{name:'Smartwatch W11 X', price:140, cat:'smartwatch', img:'p0235.jpg'},
+{name:'Smartwatch W11 Pro', price:160, cat:'smartwatch', img:'p0236.jpg'},
+{name:'Smartwatch S11 Mini', price:125, cat:'smartwatch', img:'p0237.jpg'},
+{name:'Smartwatch W11 Mini', price:140, cat:'smartwatch', img:'p0238.jpg'},
+{name:'Smartwatch W11 Mini Pro', price:160, cat:'smartwatch', protagonist:true, img:'p0239.jpg'},
+{name:'Smartwatch Ultra 4 Mini Pro', price:175, cat:'smartwatch', img:'p0240.jpg'},
+{name:'Smartwatch X Mini', price:135, cat:'smartwatch', img:'p0241.jpg'},
+{name:'Smartwatch Ultra 3 Mini', price:150, cat:'smartwatch', img:'p0242.jpg'},
+{name:'Smartwatch Ultra 3 Mini Pro', price:150, cat:'smartwatch', img:'p0243.jpg'},
+{name:'Smartwatch S12', price:105, cat:'smartwatch', img:'p0244.jpg'},
+{name:'Smartwatch S13', price:110, cat:'smartwatch', img:'p0245.jpg'},
+{name:'Smartwatch S14', price:130, cat:'smartwatch', img:'p0246.jpg'},
+{name:'Smartwatch S17', price:110, cat:'smartwatch', img:'p0247.jpg'},
+{name:'Smartwatch 10', price:110, cat:'smartwatch', img:'p0248.jpg'},
+{name:'Smartwatch 10Mini', price:110, cat:'smartwatch', img:'p0249.jpg'},
+{name:'Smartwatch 10+', price:150, cat:'smartwatch', img:'p0250.jpg'},
+{name:'Smartwatch 10Mini+', price:150, cat:'smartwatch', img:'p0251.jpg'},
+{name:'Smartwatch W76', price:150, cat:'smartwatch', img:'p0252.jpg'},
+{name:'Smartwatch W77', price:150, cat:'smartwatch', img:'p0253.jpg'},
+{name:'Smartwatch W78', price:120, cat:'smartwatch', img:'p0254.jpg'},
+{name:'Smartwatch W79', price:140, cat:'smartwatch', img:'p0255.jpg'},
+{name:'Smartwatch S36', price:120, cat:'smartwatch', img:'p0256.jpg'},
+{name:'Smartwatch S37', price:135, cat:'smartwatch', img:'p0257.jpg'},
+{name:'Smartwatch S32', price:125, cat:'smartwatch', img:'p0258.jpg'},
+{name:'Smartwatch W31', price:135, cat:'smartwatch', img:'p0259.jpg'},
+{name:'Smartwatch W37', price:110, cat:'smartwatch', img:'p0260.jpg'},
+{name:'Smartwatch W39', price:130, cat:'smartwatch', img:'p0261.jpg'},
+{name:'Smartwatch MA25', price:95, cat:'smartwatch', img:'p0262.jpg'},
+{name:'Smartwatch MA20S', price:90, cat:'smartwatch', img:'p0263.jpg'},
+{name:'Smartwatch MA11', price:140, cat:'smartwatch', img:'p0264.jpg'},
+{name:'Smartwatch M-REX 4', price:145, cat:'smartwatch', img:'p0265.jpg'},
+{name:'Smartwatch MA33', price:135, cat:'smartwatch', img:'p0266.jpg'},
+{name:'Smartwatch GT5 Mini', price:145, cat:'smartwatch', img:'p0267.jpg'},
+{name:'Smartwatch MA27', price:140, cat:'smartwatch', img:'p0268.jpg'},
+{name:'Smartwatch SU01 (GPS)', price:205, cat:'smartwatch', img:'p0269.jpg'},
+{name:'Smartwatch W11G (GPS)', price:230, cat:'smartwatch', img:'p0270.jpg'},
+{name:'Smartwatch Ultra AI 3 5G', price:290, cat:'smartwatch', img:'p0271.jpg'},
+{name:'Smartwatch HW-S12 5G', price:290, cat:'smartwatch', img:'p0272.jpg'},
+{name:'Smartwatch Ultra 5', price:125, cat:'smartwatch', img:'p0273.jpg'},
+{name:'Smartwatch Ultra 5 X', price:140, cat:'smartwatch', img:'p0274.jpg'},
+{name:'Smartwatch Ultra 4 Pro', price:135, cat:'smartwatch', img:'p0275.jpg'},
+{name:'Smartwatch Ultra 4 Plus', price:145, cat:'smartwatch', img:'p0276.jpg'},
+{name:'Smartwatch Ultra 5 Pro', price:160, cat:'smartwatch', img:'p0277.jpg'},
+{name:'Smartwatch Ultra 5 Plus', price:155, cat:'smartwatch', img:'p0278.jpg'},
+{name:'Smartwatch GT 4 Max', price:105, cat:'smartwatch', img:'p0279.jpg'},
+{name:'Smartwatch W29 (AMOLED)', price:90, cat:'smartwatch', img:'p0280.jpg'},
+{name:'Smartwatch Amax Ultra', price:90, cat:'smartwatch', img:'p0281.jpg'},
+{name:'Smartwatch W68+', price:80, cat:'smartwatch', img:'p0282.jpg'},
+{name:'Smartwatch W67', price:75, cat:'smartwatch', img:'p0283.jpg'},
+{name:'Smartwatch WFCC', price:105, cat:'smartwatch', img:'p0284.jpg'},
+{name:'Smartwatch WFCC (Ultra)', price:105, cat:'smartwatch', img:'p0285.jpg'},
+{name:'Smartwatch S28', price:85, cat:'smartwatch', img:'p0286.jpg'},
+{name:'Smartwatch Watch Series S', price:150, cat:'smartwatch', img:'p0287.jpg'},
+{name:'Smartwatch Watch Ultra', price:160, cat:'smartwatch', img:'p0288.jpg'},
+{name:'Smartwatch Galaxy Watch Ultra', price:160, cat:'smartwatch', img:'p0289.jpg'},
+{name:'Power Bank KA-952 (5.000mAh)', price:30, cat:'powerbank', code:'KA-952', img:'p0290.jpg'},
+{name:'Power Bank 8523 (10.000mAh)', price:45, cat:'powerbank', code:'POW-8523', img:'p0291.jpg'},
+{name:'Power Bank MD-30274 (10.000mAh)', price:45, cat:'powerbank', code:'MD-30274', img:'p0292.jpg'},
+{name:'Power Bank 30276 (10.000mAh)', price:45, cat:'powerbank', code:'MD-30274', img:'p0293.jpg'},
+{name:'Power Bank 13015 (10.000mAh)', price:50, cat:'powerbank', code:'POW-1305', img:'p0294.jpg'},
+{name:'Power Bank KA-9926 (10.000mAh)', price:48, cat:'powerbank', code:'KA-9926', img:'p0295.jpg'},
+{name:'Power Bank KA-9933 (10.000mAh)', price:50, cat:'powerbank', code:'KA-9933', img:'p0296.jpg'},
+{name:'Power Bank KA-966 (10.000mAh)', price:45, cat:'powerbank', code:'KA-966', img:'p0314.jpg'},
+{name:'Power Bank KA-9557 (10.000mAh)', price:52, cat:'powerbank', code:'KA-9557', img:'p0298.jpg'},
+{name:'Power Bank KA-9092 (10.000mAh)', price:60, cat:'powerbank', code:'KA-9092', img:'p0299.jpg'},
+{name:'Power Bank KA-9205 (10.000mAh)', price:65, cat:'powerbank', code:'KA-9205', img:'p0300.jpg'},
+{name:'Power Bank KA-9553 (10.000mAh)', price:45, cat:'powerbank', code:'KA-9553', img:'p0301.jpg'},
+{name:'Power Bank KA-9919 (10.000mAh)', price:70, cat:'powerbank', code:'KA-9919', img:'p0302.jpg'},
+{name:'Power Bank KA-9913 (10.000mAh)', price:70, cat:'powerbank', code:'KA-9913', img:'p0303.jpg'},
+{name:'Power Bank KA-9885 (10.000mAh)', price:50, cat:'powerbank', code:'KA-9885', img:'p0304.jpg'},
+{name:'Power Bank KA-9801 (10.000mAh)', price:50, cat:'powerbank', code:'KA-9801', img:'p0305.jpg'},
+{name:'Power Bank BA-POW 078 (10.000mAh)', price:70, cat:'powerbank', code:'BA-POW 078', img:'p0306.jpg'},
+{name:'Power Bank BA-POW 077 (10.000mAh)', price:65, cat:'powerbank', code:'BA-POW 077', img:'p0307.jpg'},
+{name:'Power Bank (20.000mAh)', price:65, cat:'powerbank', code:'SUPER FAST CHARGER', img:'p0308.jpg'},
+{name:'Power Bank P203 (20.000mAh)', price:70, cat:'powerbank', code:'MD-P203', img:'p0309.jpg'},
+{name:'Power Bank P204 (20.000mAh)', price:75, cat:'powerbank', code:'KV-P204', img:'p0310.jpg'},
+{name:'Power Bank KV-99927 (20.000mAh)', price:80, cat:'powerbank', code:'KV-99927', img:'p0311.jpg'},
+{name:'Power Bank KA-925 (20.000mAh)', price:75, cat:'powerbank', code:'KA-925', img:'p0312.jpg'},
+{name:'Power Bank KA-9563 (20.000mAh)', price:85, cat:'powerbank', code:'KA-9563', img:'p0313.jpg'},
+{name:'Power Bank KA-9752 (20.000mAh)', price:65, cat:'powerbank', code:'KA-9752', img:'p0297.jpg'},
+{name:'Power Bank BA-POW 176 (20.000mAh)', price:80, cat:'powerbank', code:'BA-POW 176', img:'p0315.jpg'},
+{name:'Power Bank POW-13016 (20.000mAh)', price:75, cat:'powerbank', code:'POW-13016', img:'p0316.jpg'},
+{name:'Power Bank POW-127059 (30.000mAh)', price:95, cat:'powerbank', code:'POW-127059', img:'p0317.jpg'},
+{name:'Power Bank KA-9897 (30.000mAh)', price:100, cat:'powerbank', code:'KA-9897', img:'p0318.jpg'},
+{name:'Power Bank KA-9893 (30.000mAh)', price:120, cat:'powerbank', code:'KA-9893', img:'p0319.jpg'},
+{name:'Power Bank KA-974 (30.000mAh)', price:90, cat:'powerbank', code:'KA-974', img:'p0320.jpg'},
+{name:'Power Bank BA-POW 177 (30.000mAh)', price:95, cat:'powerbank', code:'BA-POW177', img:'p0321.jpg'},
+{name:'Power Bank KA-9096 (40.000mAh)', price:145, cat:'powerbank', code:'KA-9096', img:'p0322.jpg'},
+{name:'Power Bank KA-9582 (50.000mAh)', price:160, cat:'powerbank', code:'KA-9582', img:'p0323.jpg'},
+{name:'Power Bank KA-9097 (60.000mAh)', price:185, cat:'powerbank', code:'KA-9097', img:'p0324.jpg'},
+{name:'Power Bank KV-96946 (10.000mAh)', price:75, cat:'powerbank', code:'KV-96946', img:'p0325.jpg'},
+{name:'Power Bank BA-POW 114 (5.000mAh)', price:75, cat:'powerbank', code:'BA-POW 114', img:'p0326.jpg'},
+{name:'Power Bank BA-POW 115 (10.000mAh)', price:95, cat:'powerbank', code:'BA-POW 115', img:'p0327.jpg'},
+{name:'Power Bank MD-12734 (5.000mAh)', price:60, cat:'powerbank', code:'MD-12734', img:'p0328.jpg'},
+{name:'Power Bank MD-12735 (10.000mAh)', price:70, cat:'powerbank', code:'MD-12735', img:'p0329.jpg'},
+{name:'Power Bank BA-POW 219 (10.000mAh)', price:90, cat:'powerbank', code:'BA-POW 219', img:'p0330.jpg'},
+{name:'Power Bank BA-B204 (10.000mAh)', price:90, cat:'powerbank', code:'BA-B204', img:'p0331.jpg'},
+{name:'Power Bank POW-384A (10.000mAh)', price:60, cat:'powerbank', code:'POW-384A', img:'p0332.jpg'},
+{name:'Power Bank B-079B (20.000mAh)', price:75, cat:'powerbank', code:'B-079B', img:'p0333.jpg'},
+{name:'Caixa de Som KA-887', price:15, cat:'caixas', code:'KA-887', img:'p0334.jpg'},
+{name:'Caixa de Som KA-8577', price:35, cat:'caixas', code:'KA-8577', img:'p0335.jpg'},
+{name:'Caixa de Som KA-8335', price:55, cat:'caixas', code:'KA-8335', img:'p0336.jpg'},
+{name:'Caixa de Som KA-8358', price:55, cat:'caixas', code:'KA-8358', img:'p0337.jpg'},
+{name:'Microfone Karaokê KA-1003 B', price:30, cat:'caixas', code:'KA-1003 B', img:'p0338.jpg'},
+{name:'Caixa de Som RAD-12415', price:45, cat:'caixas', code:'RAD-12415', img:'p0339.jpg'},
+{name:'Caixa de Som RAD-12419', price:45, cat:'caixas', code:'RAD-12419', img:'p0340.jpg'},
+{name:'Caixa de Som RAD-12107', price:48, cat:'caixas', code:'RAD-12107', img:'p0341.jpg'},
+{name:'Caixa de Som RAD-12417', price:52, cat:'caixas', code:'RAD-12417', img:'p0342.jpg'},
+{name:'Caixa de Som RAD-12421', price:65, cat:'caixas', code:'RAD-12421', img:'p0343.jpg'},
+{name:'Caixa de Som MD-13345', price:50, cat:'caixas', code:'MD-13345', img:'p0344.jpg'},
+{name:'Caixa de Som RAD-12496', price:90, cat:'caixas', code:'RAD-12496', img:'p0345.jpg'},
+{name:'Caixa de Som RAD-13062', price:95, cat:'caixas', code:'RAD-13062', img:'p0346.jpg'},
+{name:'Caixa de Som RAD-13060', price:105, cat:'caixas', code:'RAD-13060', img:'p0347.jpg'},
+{name:'Caixa de Som MD-12705', price:150, cat:'caixas', code:'MD-12705', img:'p0348.jpg'},
+{name:'Rádio KA-3188', price:70, cat:'caixas', code:'KA-3188', img:'p0349.jpg'},
+{name:'Rádio KA-3328', price:80, cat:'caixas', code:'KA-3328', img:'p0350.jpg'},
+{name:'Caixa de Som BA-RAD 184', price:70, cat:'caixas', code:'BA-RAD 184', img:'p0351.jpg'},
+{name:'Caixa de Som BA-RAD 238', price:90, cat:'caixas', code:'BA-RAD 238', img:'p0352.jpg'},
+{name:'Caixa de Som BA-RAD 188', price:90, cat:'caixas', code:'BA-RAD 188', img:'p0353.jpg'},
+{name:'Caixa de Som BA-RAD 212', price:100, cat:'caixas', code:'BA-RAD 212', img:'p0354.jpg'},
+{name:'Caixa de Som BA-RAD 281', price:110, cat:'caixas', code:'BA-RAD 281', img:'p0355.jpg'},
+{name:'Caixa de Som BA-RAD 034', price:140, cat:'caixas', code:'BA-RAD 034', img:'p0356.jpg'},
+{name:'Caixa de Som BA-RAD 036', price:150, cat:'caixas', code:'BA-RAD 036', img:'p0357.jpg'},
+{name:'Caixa de Som BA-RAD 136', price:150, cat:'caixas', code:'BA-RAD 136', img:'p0358.jpg'},
+{name:'Caixa de Som BA-RAD 190', price:150, cat:'caixas', code:'BA-RAD 190', img:'p0359.jpg'},
+{name:'Caixa de Som BA-RAD 123', price:150, cat:'caixas', code:'BA-RAD 123', img:'p0360.jpg'},
+{name:'Caixa de Som BA-RAD 135', price:175, cat:'caixas', code:'BA-RAD 135', img:'p0361.jpg'},
+{name:'Caixa de Som BA-RAD 020', price:180, cat:'caixas', code:'BA-RAD 020', img:'p0362.jpg'},
+{name:'Caixa de Som BA-RAD 017', price:200, cat:'caixas', code:'BA-RAD 017', img:'p0363.jpg'},
+{name:'Caixa de Som BA-RAD 191', price:210, cat:'caixas', code:'BA-RAD 191', img:'p0364.jpg'},
+{name:'Caixa de Som BA-RAD 016', price:260, cat:'caixas', code:'BA-RAD 016', img:'p0365.jpg'},
+{name:'Caixa de Som BA-RAD 172', price:280, cat:'caixas', code:'BA-RAD 172', img:'p0366.jpg'},
+{name:'Caixa de Som BA-RAD 237', price:340, cat:'caixas', code:'BARAD237', img:'p0367.jpg'},
+{name:'Caixa de Som BA-RAD 018 (80W)', price:400, cat:'caixas', code:'BA-RAD 018', img:'p0368.jpg'},
+{name:'Caixa de Som BA-RAD 035', price:600, cat:'caixas', code:'BA-RAD 035', img:'p0369.jpg'},
+{name:'Caixa de Som BA-RAD 171', price:1290, cat:'caixas', code:'BA-RAD 171', img:'p0370.jpg'},
+{name:'Lâmpada Câmera Kapbom', price:50, cat:'cameras', code:'GA4-5', img:'p0371.jpg'},
+{name:'Lâmpada Câmera Inova', price:55, cat:'cameras', code:'MD-20158', img:'p0372.jpg'},
+{name:'Câmera IP 3 Antenas', price:60, cat:'cameras', code:'KAP-S069B', img:'p0373.jpg'},
+{name:'Câmera Smart Wifi Inova', price:80, cat:'cameras', code:'KV-725', img:'p0374.jpg'},
+{name:'Câmera Smart Wifi Kapbom', price:85, cat:'cameras', code:'KA-S077B', img:'p0375.jpg'},
+{name:'Câmera Smart Wifi Basike', price:85, cat:'cameras', code:'BA-CAN003', img:'p0376.jpg'},
+{name:'Câmera Smart Wifi Inova #2', price:95, cat:'cameras', img:'p0377.jpg'},
+{name:'Câmera Smart Wifi Inova #3', price:130, cat:'cameras', img:'p0378.jpg'},
+{name:'Câmera Smart Wifi Basike #2', price:125, cat:'cameras', img:'p0379.jpg'},
+{name:'Câmera Smart Wifi Inova #4', price:125, cat:'cameras', code:'KV738', img:'p0380.jpg'},
+{name:'Câmera Smart Wifi Kapbom #2', price:140, cat:'cameras', img:'p0381.jpg'},
+{name:'Câmera Smart Wifi Basike #3', price:150, cat:'cameras', code:'BA-CAN004', img:'p0382.jpg'},
+{name:'Câmera Smart Wifi Inova #5', price:180, cat:'cameras', img:'p0383.jpg'},
+{name:'Câmera Smart Wifi Inova #6', price:215, cat:'cameras', img:'p0384.jpg'},
+{name:'Câmera Smart Wifi Basike #4', price:190, cat:'cameras', code:'BA-CAN001', img:'p0385.jpg'},
+{name:'Câmera Smart Wifi Dupla', price:110, cat:'cameras', img:'p0386.jpg'},
+{name:'Projetor HY-300', price:165, cat:'cameras', img:'p0387.jpg'},
+{name:'Projetor HY-320', price:200, cat:'cameras', img:'p0388.jpg'},
+{name:'Projetor Basike 4K', price:350, cat:'cameras', img:'p0389.jpg'},
+{name:'Projetor Basike 4K #2', price:390, cat:'cameras', code:'BA-TY130', img:'p0390.jpg'},
+{name:'Projetor Basike 4K #3', price:400, cat:'cameras', code:'BA-TY129', img:'p0391.jpg'},
+{name:'Câmera Digital Basike', price:225, cat:'cameras', code:'BA-CAN215', img:'p0392.jpg'},
+{name:'Câmera Print Infantil', price:90, cat:'cameras', img:'p0393.jpg'},
+{name:'Câmera Esportiva Infantil', price:90, cat:'cameras', img:'p0394.jpg'},
+{name:'Câmera Print Infantil #2', price:110, cat:'cameras', img:'p0396.jpg'},
+{name:'Câmera Print Infantil #3', price:105, cat:'cameras', img:'p0397.jpg'},
+{name:'Localizador Bluetooth Basike (iPhone)', price:35, cat:'diversos', code:'BA-DR047', img:'p0398.jpg'},
+{name:'Caneta Touch Universal', price:60, cat:'diversos', img:'p0399.jpg'},
+{name:'Passador de Slide Inova', price:35, cat:'diversos', img:'p0402.jpg'},
+{name:'Microfone Lapela Kapbom (TYC)', price:45, cat:'diversos', img:'p0403.jpg'},
+{name:'Microfone Lapela Kapbom (7G)', price:65, cat:'diversos', img:'p0404.jpg'},
+{name:'Microfone Lapela Basike (TYC)', price:85, cat:'diversos', img:'p0405.jpg'},
+{name:'Microfone Lapela Basike (7G)', price:85, cat:'diversos', img:'p0406.jpg'},
+{name:'Microfone Lapela Basike (TYC/7G)', price:100, cat:'diversos', img:'p0407.jpg'},
+{name:'Pendrive 8GB', price:15, cat:'diversos', img:'p0408.jpg'},
+{name:'Pendrive 16GB', price:20, cat:'diversos', img:'p0409.jpg'},
+{name:'Pendrive 32GB', price:25, cat:'diversos', img:'p0410.jpg'},
+{name:'Pendrive 64GB', price:32, cat:'diversos', img:'p0411.jpg'},
+{name:'Suporte Veicular Inova', price:15, cat:'diversos', img:'p0412.jpg'},
+{name:'Suporte Veicular Inova #2', price:15, cat:'diversos', img:'p0413.jpg'},
+{name:'Suporte Magnético Basike', price:40, cat:'diversos', img:'p0414.jpg'},
+{name:'Massageador Pistola Kapbom', price:40, cat:'diversos', img:'p0415.jpg'},
+{name:'Massageador Pistola Inova', price:50, cat:'diversos', img:'p0416.jpg'},
+{name:'Maquininha Barba/Cabelo', price:15, cat:'diversos', img:'p0417.jpg'},
+{name:'Maquina Hair Clipper', price:30, cat:'diversos', img:'p0418.jpg'},
+{name:'Maquina T9', price:35, cat:'diversos', img:'p0419.jpg'},
+{name:'Maquina Hair Clipper #2', price:35, cat:'diversos', img:'p0420.jpg'},
+{name:'Maquina Hair Clipper Profissional', price:70, cat:'diversos', img:'p0421.jpg'},
+{name:'Secador Inova Prime (110V)', price:90, cat:'diversos', img:'p0422.jpg'},
+{name:'Secador Inova Prime #2 (110V)', price:120, cat:'diversos', img:'p0423.jpg'},
+{name:'Escova Secadora 5em1 (110V)', price:100, cat:'diversos', img:'p0424.jpg'},
+{name:'Ventosa para Celular', price:5, cat:'diversos', img:'p0425.jpg'},
+{name:'Cordinha p/ Celular de Mão', price:6, cat:'diversos', img:'p0426.jpg'},
+{name:'Cordinha p/ Celular de Pescoço', price:8, cat:'diversos', img:'p0427.jpg'},
+{name:'Cordinha de Pescoço', price:10, cat:'diversos', img:'p0428.jpg'},
+{name:'Lanterna Kapbom', price:10, cat:'diversos', img:'p0429.jpg'},
+{name:'Lanterna Kapbom #2', price:15, cat:'diversos', img:'p0430.jpg'},
+{name:'Lanterna de Cabeça Kapbom', price:20, cat:'diversos', img:'p0431.jpg'},
+{name:'Lanterna de Cabeça Kapbom #2', price:25, cat:'diversos', img:'p0432.jpg'},
+{name:'Dominó', price:18, cat:'diversos', img:'p0433.jpg'},
+{name:'Compressor de Ar Portátil', price:90, cat:'diversos', img:'p0434.jpg'},
+{name:'Power Bank Inova 30.000mAh (c/ cabos)', price:100, cat:'powerbank', code:'BA-POW177C', img:'p0435.jpg'},
+{name:'Fone Inova EarPods Lightning (10pcs)', price:12, cat:'fones', img:'p0436.jpg'},
+{name:'Fone Inova EarPods USB-C', price:12, cat:'fones', code:'FON-30039', img:'p0437.jpg'},
+{name:'Carregador Inova 3.1A 2USB', price:13, cat:'cabos', code:'CAR-3160S', img:'p0438.jpg'},
+{name:'Câmera Inova Smart Wifi Dupla Lente', price:140, cat:'cameras', img:'p0439.jpg'},
+{name:'Mouse Sem Fio Inova', price:16, cat:'diversos', code:'MOU-20424', img:'p0440.jpg'},
+{name:'Drone Inova Fold Drone (c/ câmera)', price:190, cat:'diversos', code:'WRJ-12616', img:'p0441.jpg'},
+{name:'Suporte Veicular Inova', price:20, cat:'diversos', code:'MD-13462', img:'p0442.jpg'},
+{name:'Suporte Veicular Inova #2', price:20, cat:'diversos', code:'MD-13464', img:'p0443.jpg'},
+{name:'Suporte Magnético Inova', price:25, cat:'diversos', code:'MD-13138', img:'p0444.jpg'},
+{name:'Suporte Bike/Guidão Invas', price:25, cat:'diversos', code:'IN-13475', img:'p0445.jpg'},
+{name:'Carregador Basike 27W (Lightning)', price:30, cat:'cabos', code:'MD-CAR271A', img:'p0446.jpg'},
+{name:'Carregador Basike 27W (USB-C)', price:30, cat:'cabos', code:'MD-CAR271C', img:'p0447.jpg'},
+{name:'Fone Inova TWS', price:30, cat:'fones', code:'FON-12969B', img:'p0448.jpg'},
+{name:'Carregador Basike 35W (USB-C)', price:35, cat:'cabos', code:'MD-CAR272C', img:'p0449.jpg'},
+{name:'Carregador Basike 35W (Lightning)', price:35, cat:'cabos', code:'MD-CAR272A', img:'p0450.jpg'},
+{name:'Caixa de Som Basike 100W', price:380, cat:'caixas', code:'BA-RAD179', img:'p0451.jpg'},
+{name:'Caixa de Som Basike (c/ microfones)', price:390, cat:'caixas', code:'BA-RAD066', img:'p0452.jpg'},
+{name:'Fone Inova TWS #2', price:40, cat:'fones', code:'BA-FON173A', img:'p0453.jpg'},
+{name:'Mouse Gamer Basike', price:40, cat:'diversos', code:'BA-MOU341AA', img:'p0454.jpg'},
+{name:'Fone Inova AirPods Pro Style', price:40, cat:'fones', code:'FON-12061A', img:'p0455.jpg'},
+{name:'Mini Tripé Profissional Inova (c/ luz e mic)', price:42, cat:'diversos', code:'SPO-13361', img:'p0456.jpg'},
+{name:'Bastão LED RGB Inova', price:50, cat:'diversos', code:'MD-13409', img:'p0457.jpg'},
+{name:'Microfone Lapela Basike (Lightning)', price:55, cat:'diversos', code:'BA-MIC0006', img:'p0458.jpg'},
+{name:'Microfone Lapela Basike (USB-C)', price:55, cat:'diversos', code:'BA-MIC0007', img:'p0459.jpg'},
+{name:'Caixa de Som Basike 200W', price:560, cat:'caixas', code:'BA-RAD180', img:'p0460.jpg'},
+{name:'Fone de Ouvido de Capacete Inova', price:60, cat:'fones', code:'FON-13085', img:'p0461.jpg'},
+{name:'Mini Tripé Pro Basike', price:60, cat:'diversos', code:'BA-SPO255', img:'p0462.jpg'},
+{name:'Headphone Inova', price:60, cat:'fones', code:'MD-13365A', img:'p0463.jpg'},
+{name:'Power Bank Inova 10.000mAh (c/ cabos)', price:60, cat:'powerbank', code:'BA-POW078G', img:'p0464.jpg'},
+{name:'Cabo de Dados Inova Lightning 3.4A', price:7, cat:'cabos', img:'p0465.jpg'},
+{name:'Cabo de Dados Inova USB-C 3.4A', price:7, cat:'cabos', img:'p0466.jpg'},
+{name:'Microfone de Colarinho Basike (Lightning)', price:75, cat:'diversos', code:'BA-MIC0006-CC', img:'p0467.jpg'},
+{name:'Microfone de Colarinho Basike (USB-C)', price:75, cat:'diversos', code:'BA-MIC0007-CC', img:'p0468.jpg'},
+{name:'Caixa de Som/Despertador Inova', price:75, cat:'caixas', img:'p0469.jpg'},
+{name:'Suporte Para Notebook Basike', price:75, cat:'diversos', code:'BA-SPO382', img:'p0470.jpg'},
+{name:'Câmera de Segurança Smart Wifi Inova', price:80, cat:'cameras', code:'BA-CAM0006', img:'p0471.jpg'},
+{name:'Power Bank Inova 20.000mAh (c/ cabos)', price:80, cat:'powerbank', code:'BA-POW079H', img:'p0472.jpg'},
+{name:'Tripé 165cm Inova', price:85, cat:'diversos', code:'SPO-13419', img:'p0473.jpg'},
+{name:'Rádio Comunicador Kapbom (par)', price:110, cat:'diversos', code:'BF-777S', img:'p0474.jpg'},
+{name:'Smart Bracelet Kapbom', price:15, cat:'smartwatch', code:'KA-D20', img:'p0475.jpg'},
+{name:'Power Bank Kapbom 20.000mAh 100W', price:150, cat:'powerbank', code:'KA-9897B', img:'p0476.jpg'},
+{name:'Power Bank Kapbom 30.000mAh 100W (c/ tela)', price:190, cat:'powerbank', code:'KA-9895B', img:'p0477.jpg'},
+{name:'Câmera de Segurança Kapbom', price:225, cat:'cameras', code:'KA-S095B', img:'p0478.jpg'},
+{name:'Caixa de Som Kapbom (c/ microfone)', price:250, cat:'caixas', code:'KA-8812', img:'p0479.jpg'},
+{name:'Headphone Infantil Gatinho Kapbom', price:28, cat:'fones', code:'KA-981', img:'p0480.jpg'},
+{name:'Headphone Infantil Gatinho Kapbom #2', price:32, cat:'fones', code:'KA-980', img:'p0481.jpg'},
+{name:'Caixa de Som Kapbom 500W RGB', price:350, cat:'caixas', code:'KA-8592', img:'p0482.jpg'},
+{name:'Headset Gamer Kapbom', price:60, cat:'fones', code:'KA-9007', img:'p0483.jpg'},
+{name:'Aspirador Robô Kapbom', price:66, cat:'diversos', code:'KA-6473', img:'p0484.jpg'},
+{name:'Power Bank Kapbom (c/ cabos embutidos)', price:70, cat:'powerbank', code:'KA-9951', img:'p0485.jpg'},
+{name:'Power Bank Kapbom Magnético 10.000mAh', price:70, cat:'powerbank', code:'KA-9203', img:'p0486.jpg'},
+{name:'Headset Gamer Kapbom LED', price:70, cat:'fones', code:'KA-9008', img:'p0487.jpg'},
+{name:'Kit Teclado e Mouse Inova', price:75, cat:'diversos', code:'KV-789', img:'p0488.jpg'},
+{name:'Power Bank Kapbom Magnético', price:75, cat:'powerbank', code:'KA-9555', img:'p0489.jpg'},
+{name:'Fone de Ouvido Kapbom P2', price:8, cat:'fones', img:'p0490.jpg'},
+{name:'Robô de Limpeza Kapbom', price:82, cat:'diversos', code:'KA-1767', img:'p0491.jpg'},
+{name:'Suporte AI Tracking Kapbom', price:85, cat:'diversos', code:'KA-ZP117', img:'p0492.jpg'},
+{name:'Power Bank Kapbom 20.000mAh 22.5W', price:90, cat:'powerbank', code:'KA-9951E', img:'p0493.jpg'},
+{name:'Furadeira Elétrica Inova 48V (c/ maleta)', price:120, cat:'diversos', code:'SCR-12910', img:'p0494.jpg'},
+{name:'Furadeira Elétrica Inova 36W (c/ maleta)', price:140, cat:'diversos', code:'SCR-12911AB', img:'p0495.jpg'},
+{name:'Caixa de Som Basike 100W', price:400, cat:'caixas', code:'BA-RAD253', img:'p0496.jpg'},
+{name:'Kit de Ferramentas (39 peças)', price:80, cat:'diversos', code:'LC-9639', img:'p0497.jpg'},
+{name:'Kit de Ferramentas (c/ furadeira)', price:90, cat:'diversos', code:'LC-8018', img:'p0498.jpg'},
+{name:'Soprador de Folhas Invas 21V 260W', price:95, cat:'diversos', code:'IN-13422', img:'p0499.jpg'},
+{name:'Caixa de Som Basike', price:280, cat:'caixas', code:'BA-RAD295', img:'p0500.jpg'},
+{name:'Carregador Inova 3.1A (2x USB) + Cabo', price:18, cat:'cabos', code:'CAR-3165C', img:'p0501.jpg'},
+{name:'Kit de Ferramentas Invas 58pcs', price:175, cat:'diversos', code:'IN-13177', img:'p0502.jpg'},
+{name:'Kit de Ferramentas Invas 40pcs (chave catraca)', price:190, cat:'diversos', code:'IN-13178', img:'p0503.jpg'},
+{name:'Soprador Invas Motor de Tempestade 21V', price:190, cat:'diversos', code:'SCR-13051', img:'p0504.jpg'},
+{name:'WAI3', price:255, cat:'diversos', code:'W-AI-3', img:'p0505.jpg'},
+{name:'WAI3PRO', price:275, cat:'diversos', code:'W-AI-3-PRO', img:'p0506.jpg'},
+{name:'Câmera Digital Basike 4K', price:325, cat:'cameras', code:'BA-CAM334', img:'p0507.jpg'},
+{name:'Fone Inova TWS', price:35, cat:'fones', code:'FON-12969D', img:'p0508.jpg'},
+{name:'Caixa de Som Basike (c/ alça)', price:400, cat:'caixas', code:'BA-RAD061', img:'p0509.jpg'},
+{name:'Caixa de Som Basike 200W', price:500, cat:'caixas', code:'R62', img:'p0510.jpg'},
+{name:'Carregador Basike 65W GaN (3 saídas)', price:60, cat:'cabos', code:'BA-CAR072', img:'p0511.jpg'},
+{name:'Caixa de Som Basike (c/ 2 microfones)', price:800, cat:'caixas', code:'BARAD-063', img:'p0512.jpg'},
+{name:'Tag Localizador Inova', price:35, cat:'diversos', code:'Ba-DW346C', img:'p0513.jpg'},
+{name:'Cabo Basike 2 em 1 USB-C/Lightning (c/ display)', price:18, cat:'cabos', code:'BA-CBO120', img:'p0514.jpg'},
+{name:'Cabo Basike 2 em 1 USB-C (c/ display)', price:18, cat:'cabos', code:'BA-CBO119', img:'p0515.jpg'},
+{name:'Fechadura Digital Inteligente Inova', price:230, cat:'diversos', code:'YS-12884A', img:'p0516.jpg'},
+{name:'Estabilizador Gimbal TOKQI M01', price:280, cat:'diversos', code:'TOKQI-M01', img:'p0517.jpg'},
+{name:'Estabilizador Gimbal XZY L7C Pro', price:300, cat:'diversos', code:'L7CPRO', img:'p0518.jpg'},
+{name:'Estabilizador Gimbal XZY S5B', price:330, cat:'diversos', code:'S5B', img:'p0519.jpg'},
+{name:'Carregador Basike 67W (3 saídas)', price:48, cat:'cabos', code:'MD-CAR273', img:'p0520.jpg'},
+{name:'Carregador Basike 67W (c/ cabo USB-C)', price:55, cat:'cabos', code:'MD-CAR273C', img:'p0521.jpg'},
+{name:'Fone Sem Fio Inova (open-ear)', price:48, cat:'fones', code:'FON-13012E', img:'p0522.jpg'},
+{name:'Headphone Basike Wireless Stereo', price:98, cat:'fones', code:'BA-MD137A', img:'p0523.jpg'},
+{name:'Smartwatch Microwear W12 Mini (kit completo)', price:175, cat:'smartwatch', img:'p0526.jpg'},
+{name:'Smartwatch Microwear W12 Pro', price:185, cat:'smartwatch', img:'p0527.jpg'},
+{name:'Power Bank Turbo 10.000mAh c/ 4 Cabos', price:45, cat:'powerbank', code:'KA-9565', img:'p0528.jpg'},
+{name:'Carregador Portátil 10.000mAh', price:50, cat:'powerbank', code:'KA-9931', img:'p0529.jpg'},
+{name:'Carregador Portátil 10.000mAh (c/ cabo V8/5G/TY)', price:50, cat:'powerbank', code:'KA-9912', img:'p0530.jpg'},
+{name:'Carregador Portátil 10.000mAh 22.5W (display, cabos e lanterna)', price:55, cat:'powerbank', code:'KA-957K', img:'p0531.jpg'},
+{name:'Power Bank Turbo 10.000mAh 20W+22.5W', price:55, cat:'powerbank', code:'KA-9206', img:'p0532.jpg'},
+{name:'Carregador Portátil Turbo 22.5W 10.000mAh', price:55, cat:'powerbank', code:'KA-9093', img:'p0533.jpg'},
+{name:'Carregador Magnético 10.000mAh 22.5W', price:65, cat:'powerbank', code:'KA-9923', img:'p0534.jpg'},
+{name:'Carregador Portátil Digital 22.5W (cabo duplo e visor)', price:65, cat:'powerbank', code:'KA-957L', img:'p0535.jpg'},
+{name:'Carregador Magnético 10.000mAh (display digital)', price:70, cat:'powerbank', code:'KA-9919L', img:'p0536.jpg'},
+{name:'Carregador Magnético 10.000mAh (dois cabos e suporte)', price:70, cat:'powerbank', code:'KA-9919K', img:'p0537.jpg'},
+{name:'Cabo Basike USB-C 100W (1m)', price:10, cat:'cabos', code:'BA-CBO482', img:'p0547.jpg'},
+{name:'Cabo Basike USB-C/Lightning 27W (1m)', price:10, cat:'cabos', code:'BA-CBO483', img:'p0548.jpg'},
+{name:'Cabo Basike USB-A/Tipo C 60W (2m)', price:10, cat:'cabos', code:'BA-CBO488', img:'p0549.jpg'},
+{name:'Cabo Basike USB-A/Lightning 12W (2m)', price:10, cat:'cabos', code:'BA-CBO489', img:'p0550.jpg'},
+{name:'Cabo Basike 2 em 1 C/C+L 100W (1,5m)', price:10, cat:'cabos', code:'BA-CBO491', img:'p0551.jpg'},
+{name:'Suporte Veicular Magnético Basike (ventosa 360°)', price:30, cat:'diversos', code:'BA-SPO276', img:'p0552.jpg'},
+{name:'Fita LED RGB 5m Inova (controle e modo música)', price:32, cat:'diversos', code:'MD-12794', img:'p0553.jpg'},
+{name:'Caixa de Som Inova Portátil LED 8W', price:40, cat:'caixas', code:'MD-13345A', img:'p0554.jpg'},
+{name:'Massageador Fascial Inova 24W', price:40, cat:'diversos', code:'JMQ-13507', img:'p0555.jpg'},
+{name:'Fone Inova OWS (gancho de orelha)', price:48, cat:'fones', code:'FON-12970D', img:'p0556.jpg'},
+{name:'Fone Inova TWS (modo gamer)', price:48, cat:'fones', code:'FON-13025AB', img:'p0557.jpg'},
+{name:'Fone Inova OWS Clip (bege)', price:48, cat:'fones', code:'FON-13025O', img:'p0558.jpg'},
+{name:'Caixa de Som Basike BA-RAD055 (c/ 2 microfones)', price:980, cat:'caixas', code:'BA-RAD055', img:'p0559.jpg'},
+{name:'Caixa de Som Basike BA-RAD054 (c/ 2 microfones)', price:1300, cat:'caixas', code:'BA-RAD054', img:'p0560.jpg'},
+{name:'Caixa de Som Basike BA-RAD052 (c/ tela e 2 microfones)', price:2300, cat:'caixas', code:'BA-RAD052', img:'p0561.jpg'},
+{name:'Caixa de Som Basike BA-RAD053 (c/ tela e 2 microfones)', price:2700, cat:'caixas', code:'BA-RAD053', img:'p0562.jpg'}
+];
+
+
+function fmt(v){ return v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function iconFor(cat){ return ICONS[cat] || ICONS.diversos; }
+function svg(cat, size){
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">'+iconFor(cat)+'</svg>';
+}
+
+let activeCat = 'all';
+let searchTerm = '';
+
+function buildNav(){
+  const nav = document.getElementById('catNav');
+  nav.innerHTML = CATS.map(c => `<div class="cat-pill${c.id===activeCat?' active':''}" onclick="filterCat('${c.id}')">${c.label}</div>`).join('');
+}
+
+
+function filterCat(id){
+  activeCat = id;
+  buildNav();
+  render();
+}
+
+function render(){
+  const grid = document.getElementById('grid');
+  let items = PRODUCTS.filter(p => activeCat==='all' || p.cat===activeCat);
+  if(searchTerm.trim()){
+    const t = searchTerm.toLowerCase();
+    items = items.filter(p => p.name.toLowerCase().includes(t) || (p.code && p.code.toLowerCase().includes(t)));
+  }
+  document.getElementById('gridTitle').textContent = activeCat==='all' ? 'Todos os produtos' : CATS.find(c=>c.id===activeCat).label;
+  document.getElementById('gridCount').textContent = items.length + ' produtos';
+
+  if(items.length===0){
+    grid.innerHTML = '<div class="empty-state">Nenhum produto encontrado. Tente outro termo.</div>';
+    return;
+  }
+
+  grid.innerHTML = items.map((p, pos) => {
+    const idx = PRODUCTS.indexOf(p);
+    const img = p.img;
+    const qty = cart[idx] || 0;
+    return `
+    <div class="card">
+      <div class="card-photo${p.outOfStock ? ' is-oos' : ''}">
+        ${p.code ? `<div class="card-code">${p.code}</div>` : ''}
+        <div class="card-topright">
+          ${p.outOfStock ? '<div class="oos-badge">Fora de estoque</div>' : (p.protagonist ? '<div class="protagonist-badge">Destaque</div>' : '')}
+          <div class="card-number">${pos + 1}</div>
+        </div>
+        ${img ? `<img src="${img}" alt="${p.name}" loading="lazy" style="width:100%;height:100%;object-fit:contain;padding:4px;">` : svg(p.cat)}
+      </div>
+      <div class="card-info">
+        <div class="card-name">${p.name}</div>
+        <div class="price-edit${edits[idx]!==undefined?' changed':''}" id="pe-${idx}">
+          <span class="pe-cur">R$</span>
+          <input type="text" inputmode="decimal" autocomplete="off" placeholder="${fmt(p.price)}" value="${edits[idx]!==undefined?String(edits[idx]).replace('.',','):''}" oninput="onEdit(${idx}, this)">
+        </div>
+        <div class="pe-old">Preço atual: R$ ${fmt(p.price)}</div>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+function openModal(idx){
+  const p = PRODUCTS[idx];
+  const img = p.img;
+  document.getElementById('modalPhoto').innerHTML = '<div class="modal-close" onclick="closeModal()">✕</div>' + (img ? `<img src="${img}" alt="${p.name}" style="width:100%;height:100%;object-fit:contain;${p.outOfStock ? 'opacity:0.45;filter:grayscale(40%);' : ''}">` : svg(p.cat));
+  document.getElementById('modalCat').innerHTML = (p.outOfStock ? '<span class="modal-oos-badge">Fora de estoque</span><br>' : '') + CATS.find(c=>c.id===p.cat).label;
+  document.getElementById('modalName').textContent = p.name;
+  document.getElementById('modalCode').textContent = p.code ? ('Código: ' + p.code) : '';
+  document.getElementById('modalPrice').textContent = 'R$ ' + fmt(p.price);
+  document.getElementById('modalSpecs').innerHTML = `
+    <div><span>Categoria</span><span>${CATS.find(c=>c.id===p.cat).label}</span></div>
+    <div><span>Disponibilidade</span><span>${p.outOfStock ? 'Fora de estoque' : 'Pronta entrega'}</span></div>
+    <div><span>Venda</span><span>Atacado e varejo</span></div>
+  `;
+  const waMsg = encodeURIComponent(`Olá! Tenho interesse em: ${p.name}${p.code ? ' (código ' + p.code + ')' : ''}`);
+  document.getElementById('modalWhatsBtn').href = `https://wa.me/5511944814543?text=${waMsg}`;
+  const modalQtyRow = document.getElementById('modalQtyRow');
+  if(p.outOfStock){
+    modalQtyRow.innerHTML = '';
+  } else {
+    const q = cart[idx] || 0;
+    modalQtyRow.innerHTML = `
+      <div class="card-qty" style="margin:0;">
+        <button class="qty-btn" id="modal-qty-minus" onclick="changeQty(${idx}, -1)" ${q===0?'disabled':''}>−</button>
+        <span class="qty-value" id="modal-qty-value" data-idx="${idx}">${q}</span>
+        <button class="qty-btn" onclick="changeQty(${idx}, 1)">+</button>
+      </div>`;
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
+document.getElementById('modalOverlay').addEventListener('click', e => { if(e.target.id==='modalOverlay') closeModal(); });
+
+document.getElementById('searchInput').addEventListener('input', e => { searchTerm = e.target.value; render(); });
+
+
+let cart = {};
+try { cart = JSON.parse(localStorage.getItem(CART_KEY) || '{}'); } catch(e) { cart = {}; }
+
+function saveCart(){
+  try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch(e) {}
+  updateCartUI();
+}
+
+function changeQty(idx, delta){
+  const p = PRODUCTS[idx];
+  if(!p || p.outOfStock) return;
+  let q = (cart[idx] || 0) + delta;
+  if(q < 0) q = 0;
+  if(q === 0) delete cart[idx]; else cart[idx] = q;
+  saveCart();
+
+  const qtyEl = document.getElementById('qty-' + idx);
+  if(qtyEl){
+    qtyEl.textContent = q;
+    const cardEl = qtyEl.closest('.card');
+    if(cardEl){
+      cardEl.classList.toggle('in-cart', q > 0);
+      const minusBtn = cardEl.querySelector('.qty-btn');
+      if(minusBtn) minusBtn.disabled = (q === 0);
+    }
+  }
+  const modalQtyEl = document.getElementById('modal-qty-value');
+  if(modalQtyEl && Number(modalQtyEl.dataset.idx) === Number(idx)){
+    modalQtyEl.textContent = q;
+    const modalMinus = document.getElementById('modal-qty-minus');
+    if(modalMinus) modalMinus.disabled = (q === 0);
+  }
+}
+
+function updateCartUI(){
+  const totalItems = Object.values(cart).reduce((a,b) => a+b, 0);
+  const fab = document.getElementById('cartFab');
+  const badge = document.getElementById('cartBadge');
+  if(badge) badge.textContent = totalItems;
+  if(fab) fab.classList.toggle('hidden', totalItems === 0);
+}
+
+function openCart(){
+  const list = document.getElementById('cartItemsList');
+  const entries = Object.entries(cart);
+  if(entries.length === 0){
+    list.innerHTML = '<div class="cart-empty">Seu carrinho está vazio.<br>Adicione produtos usando o + nos cards.</div>';
+    document.getElementById('cartTotal').textContent = 'R$ ' + fmt(0);
+    document.getElementById('cartWhatsBtn1').href = '#';
+    document.getElementById('cartWhatsBtn2').href = '#';
+  } else {
+    let total = 0;
+    list.innerHTML = entries.map(([idx, qty]) => {
+      const p = PRODUCTS[idx];
+      const subtotal = p.price * qty;
+      total += subtotal;
+      return `
+      <div class="cart-item">
+        <div class="cart-item-photo">${p.img ? `<img src="${p.img}" alt="">` : ''}</div>
+        <div class="cart-item-info">
+          <div class="cart-item-name">${p.name}</div>
+          <div class="cart-item-price">${qty}x R$ ${fmt(p.price)} = R$ ${fmt(subtotal)}</div>
+          <span class="cart-item-remove" onclick="removeFromCart(${idx})">Remover</span>
+        </div>
+        <div class="card-qty" style="margin:0;">
+          <button class="qty-btn" onclick="changeQty(${idx}, -1); openCart();">−</button>
+          <span class="qty-value">${qty}</span>
+          <button class="qty-btn" onclick="changeQty(${idx}, 1); openCart();">+</button>
+        </div>
+      </div>`;
+    }).join('');
+    document.getElementById('cartTotal').textContent = 'R$ ' + fmt(total);
+
+    let msg = 'Olá! Gostaria de fazer o seguinte pedido:\n\n';
+    entries.forEach(([idx, qty]) => {
+      const p = PRODUCTS[idx];
+      msg += `${qty}x ${p.name}${p.code ? ' (' + p.code + ')' : ''}: R$ ${fmt(p.price * qty)}\n`;
+    });
+    msg += `\nTotal: R$ ${fmt(total)}`;
+    document.getElementById('cartWhatsBtn1').href = `https://wa.me/${WHATSAPP_NUM}?text=${encodeURIComponent(msg)}`;
+    document.getElementById('cartWhatsBtn2').href = `https://wa.me/${WHATSAPP_NUM2}?text=${encodeURIComponent(msg)}`;
+  }
+  document.getElementById('cartOverlay').classList.add('open');
+}
+function closeCart(){ document.getElementById('cartOverlay').classList.remove('open'); }
+function removeFromCart(idx){
+  delete cart[idx];
+  saveCart();
+  openCart();
+  const qtyEl = document.getElementById('qty-' + idx);
+  if(qtyEl){
+    qtyEl.textContent = 0;
+    const cardEl = qtyEl.closest('.card');
+    if(cardEl){
+      cardEl.classList.remove('in-cart');
+      const minusBtn = cardEl.querySelector('.qty-btn');
+      if(minusBtn) minusBtn.disabled = true;
+    }
+  }
+}
+function clearCart(){ cart = {}; saveCart(); openCart(); render(); }
+document.getElementById('cartOverlay').addEventListener('click', e => { if(e.target.id==='cartOverlay') closeCart(); });
+updateCartUI();
+
+function toggleWaMenu(id, e){
+  if(e) e.stopPropagation();
+  document.querySelectorAll('.wa-menu').forEach(m => { if(m.id !== id) m.classList.remove('open'); });
+  document.getElementById(id).classList.toggle('open');
+}
+document.addEventListener('click', () => {
+  document.querySelectorAll('.wa-menu').forEach(m => m.classList.remove('open'));
+});
+
+buildNav();
+render();
+</script>
+</body>
+</html>
